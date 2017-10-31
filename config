@@ -1,0 +1,3 @@
+interval: 600
+hosts: [turing, banana, date, wiener, ullman]
+log_path: ./logs/
