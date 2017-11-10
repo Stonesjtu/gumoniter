@@ -7,6 +7,7 @@ import json
 from datetime import datetime
 import time
 import sys
+import os
 
 def get_gpu_stat(hostname):
     try:
@@ -25,9 +26,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    if not os.path.exists(args.log_path):
+        os.makedirs(args.log_path)
+
     while True:
         try:
             now = datetime.now()
+            date = str(now).split()[0]
 
             results = []
             print(str(now))
@@ -43,7 +48,7 @@ if __name__ == '__main__':
 
             print '=' * 89
             output_json = {'time': str(now), 'data': results}
-            with open(args.log_path + '/' + 'all.log', 'a') as f:
+            with open(args.log_path + '/' + date + '.log', 'a') as f:
                 f.write(json.dumps(output_json) + '\n')
 
             sys.stdout.flush()
